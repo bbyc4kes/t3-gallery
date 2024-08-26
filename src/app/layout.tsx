@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import TopNav from "./_components/topnav";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "T3 Gallery",
@@ -15,10 +16,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="flex flex-col gap-4">
-        <TopNav />
-        {children}
-      </body>
+      <ClerkProvider>
+        <body className="flex flex-col gap-4">
+          <TopNav />
+          {children}
+        </body>
+      </ClerkProvider>
     </html>
   );
 }
