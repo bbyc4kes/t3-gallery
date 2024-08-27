@@ -1,13 +1,32 @@
+import { clerkClient } from "@clerk/nextjs/server";
 import { getMyImage } from "~/server/queries";
 
-export const dynamicParams = false;
+export async function FullPageImageView(props: { imageId: number }) {
+  const idAsNumber = Number(props.imageId);
+  if (Number.isNaN(idAsNumber)) throw new Error("Invalid photo id");
 
-export function generateStaticParams() {
-  const slugs = ["1", "2", "3", "4", "5", "6"];
-  return slugs.map((slug) => ({ id: slug }));
-}
+  const image = await getMyImage(idAsNumber);
 
-export default async function FullPageImageView(props: { imageId: number }) {
-  const image = await getMyImage(props.imageId);
-  return <img src={image.url} className="w-96" />;
+  const userInfo = await clerkClient.users.getUser(image.userId);
+
+  return (
+    <div className="flex h-full w-screen min-w-0 items-center justify-center text-white">
+      <div className="flex-shrink">
+        <img src={image.url} className="object-contain" alt={image.name} />
+      </div>
+      <div className="flex h-full w-56 flex-shrink-0 flex-col border-l">
+        <div className="border-b p-2 text-center text-xl">{image.name}</div>
+
+        <div className="p-2">
+          <div>Uploaded By:</div>
+          <div>{userInfo.fullName}</div>
+        </div>
+
+        <div className="p-2">
+          <div>Created On:</div>
+          <div>{image.createdAt.toLocaleDateString()}</div>
+        </div>
+      </div>
+    </div>
+  );
 }

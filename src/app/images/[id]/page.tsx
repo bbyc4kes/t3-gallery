@@ -1,4 +1,4 @@
-import FullPageImageView from "~/components/full-image-page";
+import { FullPageImageView } from "~/components/full-image-page";
 
 export const dynamicParams = false;
 

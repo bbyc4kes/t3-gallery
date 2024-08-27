@@ -1,12 +1,5 @@
 import { Modal } from "~/app/@modal/(.)images/[id]/modal";
-import FullPageImageView from "~/components/full-image-page";
-
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  const slugs = ["1", "2", "3", "4", "5", "6"];
-  return slugs.map((slug) => ({ id: slug }));
-}
+import { FullPageImageView } from "~/components/full-image-page";
 
 export default async function ImageModal({
   params: { id },
