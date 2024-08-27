@@ -1,4 +1,5 @@
 import { getMyImage } from "~/server/queries";
+import { Modal } from "./modal";
 
 export const dynamicParams = false;
 
@@ -17,8 +18,8 @@ export default async function ImagePage({
 
   const image = await getMyImage(parsedId);
   return (
-    <div>
+    <Modal>
       <img src={image.url} className="w-96" />
-    </div>
+    </Modal>
   );
 }
