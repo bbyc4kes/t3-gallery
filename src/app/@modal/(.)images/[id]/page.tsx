@@ -1,5 +1,5 @@
-import { getMyImage } from "~/server/queries";
-import { Modal } from "./modal";
+import { Modal } from "~/app/@modal/(.)images/[id]/modal";
+import FullPageImageView from "~/components/full-image-page";
 
 export const dynamicParams = false;
 
@@ -8,7 +8,7 @@ export function generateStaticParams() {
   return slugs.map((slug) => ({ id: slug }));
 }
 
-export default async function ImagePage({
+export default async function ImageModal({
   params: { id },
 }: {
   params: { id: string };
@@ -16,10 +16,9 @@ export default async function ImagePage({
   const parsedId = Number(id);
   if (Number.isNaN(parsedId)) throw new Error("Invalid image id");
 
-  const image = await getMyImage(parsedId);
   return (
     <Modal>
-      <img src={image.url} className="w-96" />
+      <FullPageImageView imageId={parsedId} />
     </Modal>
   );
 }

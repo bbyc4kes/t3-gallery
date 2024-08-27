@@ -1,4 +1,4 @@
-import { getMyImage } from "~/server/queries";
+import FullPageImageView from "~/components/full-image-page";
 
 export const dynamicParams = false;
 
@@ -15,10 +15,5 @@ export default async function ImagePage({
   const parsedId = Number(id);
   if (Number.isNaN(parsedId)) throw new Error("Invalid image id");
 
-  const image = await getMyImage(parsedId);
-  return (
-    <div>
-      <img src={image.url} className="w-96" />
-    </div>
-  );
+  return <FullPageImageView imageId={parsedId} />;
 }
