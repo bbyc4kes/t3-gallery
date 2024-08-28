@@ -23,8 +23,10 @@ export default function RootLayout({
       <html lang="en" className={`${GeistSans.variable}`}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <body className="flex flex-col gap-4">
-          <TopNav />
-          {children}
+          <div className="grid h-screen grid-rows-[auto,lfr]">
+            <TopNav />
+            {children}
+          </div>
           {modal}
           <div id="modal-root" />
         </body>
